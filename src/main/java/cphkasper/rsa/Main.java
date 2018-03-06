@@ -11,22 +11,26 @@ import java.io.IOException;
 public class Main {
 
     public static void main( String[] args ) throws IOException {
-        RSAAlg priv = new RSAAlg();
-        System.out.println( "RSA: " + priv );
-        DataInputStream in = new DataInputStream( System.in );
-        String teststring = "Secret AES key";
-        
-        System.out.println( "Encrypting String: " + teststring );
-        
-        // encrypt
-        String encrypted = priv.encrypt( teststring );
-        System.out.println( "Encrypted: " + encrypted);
-        
-        RSAKey publ = priv.getPublicKey();
-        
+        // Setup
+        RSAKeyPair pair = new RSAKeyPair();
+        System.out.println( "RSA: " + pair );
+
+        // Send public key to the world
+        RSAKey publ = pair.getPublicKey();
+
         // in an other system, other program, other user...
-        // decrypt
-        String decrypted = publ.decrypt( encrypted );
-        System.out.println( "Decrypted String: " + decrypted  );
+        // encrypt
+        String teststring = "Secret AES key";
+        System.out.println( "Secret message: " + teststring );
+        String encrypted = publ.encrypt( teststring );
+        System.out.println( "Encrypted String: " + encrypted );
+
+        // Back on our system
+        DataInputStream in = new DataInputStream( System.in );
+
+        // encrypt
+        String decrypted = pair.decrypt( encrypted );
+        System.out.println( "Decrypted: " + decrypted );
+
     }
 }

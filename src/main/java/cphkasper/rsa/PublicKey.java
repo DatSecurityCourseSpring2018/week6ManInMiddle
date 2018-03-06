@@ -7,27 +7,27 @@ import java.math.BigInteger;
 
  @author kasper
  */
-public class PublicKey extends RSAKey{
+public class PublicKey implements RSAKey{
 
-    private final BigInteger publ;
-    private final BigInteger N;
-
+    private BigInteger N;
+    private  BigInteger publicKey;
+    
     public PublicKey( BigInteger publ, BigInteger N ) {
-        this.publ = publ;
+        this.publicKey = publ;
         this.N = N;
     }
 
     // Encrypt message
     @Override
     public byte[] encrypt( byte[] message ) {
-        return ( new BigInteger( message ) ).modPow( publ, N ).toByteArray();
+        return ( new BigInteger( message ) ).modPow(publicKey, N ).toByteArray();
     }
 
 
     // Decrypt message
     @Override
     public byte[] decrypt( byte[] message ) {
-        return ( new BigInteger( message ) ).modPow( publ, N ).toByteArray();
+        return ( new BigInteger( message ) ).modPow(publicKey, N ).toByteArray();
     }
 
     @Override
