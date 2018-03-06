@@ -26,7 +26,6 @@ public class Main {
         System.out.println( "Encrypted String: " + encrypted );
 
         // Back on our system
-        DataInputStream in = new DataInputStream( System.in );
 
         // encrypt
         String decrypted = pair.decrypt( encrypted );
